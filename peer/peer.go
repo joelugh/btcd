@@ -189,6 +189,9 @@ type MessageListeners struct {
 	// not an error in the write occurred.  This can be useful for
 	// circumstances such as keeping track of server-wide byte counts.
 	OnWrite func(p *Peer, bytesWritten int, msg wire.Message, err error)
+
+	// OnDisconnect is invoked when we disconnect from a peer. Reason gives a reason why
+	OnDisconnect func(p *Peer, reason string)
 }
 
 // Config is the struct to hold configuration options useful to Peer.
@@ -398,6 +401,9 @@ type Peer struct {
 	connected     int32
 	disconnect    int32
 
+	// who disconnected?
+	weDisconnected int32
+
 	conn net.Conn
 
 	// These fields are set at creation time and never modified, so they are
@@ -538,6 +544,13 @@ func (p *Peer) ID() int32 {
 	p.flagsMtx.Unlock()
 
 	return id
+}
+
+// WeDisconnected returns a bool indicating whether our side closed the connection (false for an open connection)
+//
+// This function is safe for concurrent access.
+func (p *Peer) WeDisconnected() bool {
+	return atomic.LoadInt32(&p.weDisconnected) == 1
 }
 
 // NA returns the peer network address.
@@ -1393,6 +1406,10 @@ out:
 				log.Debugf("Peer %s appears to be stalled or "+
 					"misbehaving, %s timeout -- "+
 					"disconnecting", p, command)
+				atomic.StoreInt32(&p.weDisconnected, 1)
+				if p.cfg.Listeners.OnDisconnect != nil {
+					p.cfg.Listeners.OnDisconnect(p, "peer stalled: did not respond with " + command)
+				}
 				p.Disconnect()
 				break
 			}
@@ -1438,9 +1455,14 @@ func (p *Peer) inHandler() {
 	// is processed.
 	idleTimer := time.AfterFunc(idleTimeout, func() {
 		log.Warnf("Peer %s no answer for %s -- disconnecting", p, idleTimeout)
+		atomic.StoreInt32(&p.weDisconnected, 1)
+		if p.cfg.Listeners.OnDisconnect != nil {
+			p.cfg.Listeners.OnDisconnect(p, "read timeout")
+		}
 		p.Disconnect()
 	})
 
+	var disconnectReason string
 out:
 	for atomic.LoadInt32(&p.disconnect) == 0 {
 		// Read a message and stop the idle timer as soon as the read
@@ -1477,6 +1499,7 @@ out:
 				p.PushRejectMsg("malformed", wire.RejectMalformed, errMsg, nil,
 					true)
 			}
+			disconnectReason = "message parsing failed: " + err.Error()
 			break out
 		}
 		atomic.StoreInt64(&p.lastRecv, time.Now().Unix())
@@ -1489,6 +1512,7 @@ out:
 
 			p.PushRejectMsg(msg.Command(), wire.RejectDuplicate,
 				"duplicate version message", nil, true)
+			disconnectReason = "duplicate version message"
 			break out
 
 		case *wire.MsgVerAck:
@@ -1498,6 +1522,7 @@ out:
 			if p.verAckReceived {
 				log.Infof("Already received 'verack' from peer %v -- "+
 					"disconnecting", p)
+				disconnectReason = "duplicate verack"
 				break out
 			}
 			p.flagsMtx.Lock()
@@ -1632,6 +1657,14 @@ out:
 	idleTimer.Stop()
 
 	// Ensure connection is closed.
+	var weDisconnected int32 = 0
+	if disconnectReason != "" {
+		weDisconnected = 1
+	}
+	atomic.StoreInt32(&p.weDisconnected, weDisconnected)
+	if p.cfg.Listeners.OnDisconnect != nil && disconnectReason != "" {
+		p.cfg.Listeners.OnDisconnect(p, disconnectReason)
+	}
 	p.Disconnect()
 
 	close(p.inQuit)
@@ -1809,6 +1842,9 @@ out:
 
 			err := p.writeMessage(msg.msg, msg.encoding)
 			if err != nil {
+				if p.cfg.Listeners.OnDisconnect != nil && atomic.LoadInt32(&p.disconnect) == 0 {
+					p.cfg.Listeners.OnDisconnect(p, "write error: " + err.Error())
+				}
 				p.Disconnect()
 				if p.shouldLogWriteError(err) {
 					log.Errorf("Failed to send message to "+
@@ -1952,6 +1988,10 @@ func (p *Peer) AssociateConnection(conn net.Conn) {
 		na, err := newNetAddress(p.conn.RemoteAddr(), p.services)
 		if err != nil {
 			log.Errorf("Cannot create remote net address: %v", err)
+			atomic.StoreInt32(&p.weDisconnected, 1)
+			if p.cfg.Listeners.OnDisconnect != nil {
+				p.cfg.Listeners.OnDisconnect(p, "inbound peer without remote address")
+			}
 			p.Disconnect()
 			return
 		}
@@ -1961,6 +2001,10 @@ func (p *Peer) AssociateConnection(conn net.Conn) {
 	go func() {
 		if err := p.start(); err != nil {
 			log.Debugf("Cannot start peer %v: %v", p, err)
+			atomic.StoreInt32(&p.weDisconnected, 1)
+			if p.cfg.Listeners.OnDisconnect != nil {
+				p.cfg.Listeners.OnDisconnect(p, "negotiation failed: " + err.Error())
+			}
 			p.Disconnect()
 		}
 	}()
@@ -2128,6 +2172,7 @@ func newPeerBase(origCfg *Config, inbound bool) *Peer {
 		cfg:             cfg, // Copy so caller can't mutate.
 		services:        cfg.Services,
 		protocolVersion: cfg.ProtocolVersion,
+		weDisconnected:  0,
 	}
 	return &p
 }
