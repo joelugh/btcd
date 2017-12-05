@@ -1436,6 +1436,17 @@ cleanup:
 	log.Tracef("Peer stall handler done for %s", p)
 }
 
+func isConnectionClosedErr(err error) bool {
+	if err == io.ErrUnexpectedEOF || err == io.EOF {
+		return true
+	}
+	if opErr, ok := err.(*net.OpError); ok && !opErr.Temporary() {
+		return true
+	}
+
+	return false
+}
+
 // inHandler handles all incoming messages for the peer.  It must be run as a
 // goroutine.
 func (p *Peer) inHandler() {
@@ -1447,6 +1458,7 @@ func (p *Peer) inHandler() {
 	})
 
 	var disconnectReason string
+	var weClosed = true
 out:
 	for atomic.LoadInt32(&p.disconnect) == 0 {
 		// Read a message and stop the idle timer as soon as the read
@@ -1482,6 +1494,9 @@ out:
 				// command.
 				p.PushRejectMsg("malformed", wire.RejectMalformed, errMsg, nil,
 					true)
+			}
+			if isConnectionClosedErr(err) {
+				weClosed = false
 			}
 			disconnectReason = "message parsing failed: " + err.Error()
 			break out
@@ -1641,7 +1656,7 @@ out:
 	idleTimer.Stop()
 
 	// Ensure connection is closed.
-	p.DisconnectPeer(disconnectReason != "", disconnectReason)
+	p.DisconnectPeer(weClosed, disconnectReason)
 
 	close(p.inQuit)
 	log.Tracef("Peer input handler done for %s", p)
@@ -1970,7 +1985,7 @@ func (p *Peer) AssociateConnection(conn net.Conn) {
 	go func() {
 		if err := p.start(); err != nil {
 			log.Debugf("Cannot start peer %v: %v", p, err)
-			p.DisconnectPeer(true, "negotiation failed: " + err.Error())
+			p.DisconnectPeer(!isConnectionClosedErr(err), "negotiation failed: " + err.Error())
 		}
 	}()
 }
