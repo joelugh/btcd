@@ -23,6 +23,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/go-socks/socks"
 	"github.com/davecgh/go-spew/spew"
+	"strings"
 )
 
 const (
@@ -1437,14 +1438,41 @@ cleanup:
 }
 
 func isConnectionClosedErr(err error) bool {
-	if err == io.ErrUnexpectedEOF || err == io.EOF {
-		return true
-	}
-	if opErr, ok := err.(*net.OpError); ok && !opErr.Temporary() {
-		return true
+	// Go makes it very hard to find out which error occurred
+	// thus we turn it around
+	// errors in this function can come from the net package
+	// or from Peer.start() or Peer.readMessage()
+	// so we check for all errors from these, otherwise we assume
+	// a network error, and assume that means the connection failed
+	errstr := err.Error()
+
+	// timeout of Peer.start()
+	if errstr == "protocol negotiation timeout" {
+		return false
 	}
 
-	return false
+	// from peer.localVersionMsg()
+	// returns any error from cfg.NewestBlock - let's assume this doesn't raise
+
+	// from peer.handleRemoteVersionMsg()
+	if errstr == "disconnecting peer connected to self" {
+		return false
+	}
+	if strings.Contains(errstr, "protocol version must be ") {
+		return false
+	}
+
+	// from peer.readMessage() -> wire.ReadMessageWithEncodingN
+	// only raises an messageError or an error from net
+	// from peer.writeMessage() -> wire.WriteMessageWithEncodingN
+	// MessageError or error from BtcEncode or io error
+	// all implementation of Message.BtcEncode also return a MessageError or io error
+	if _, ok := err.(*wire.MessageError); ok {
+		return false // no net error -> false
+	}
+
+	// no known error, assume network error
+	return true
 }
 
 // inHandler handles all incoming messages for the peer.  It must be run as a
