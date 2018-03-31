@@ -568,6 +568,184 @@ var SimNetParams = Params{
 	HDCoinType: 115, // ASCII for s
 }
 
+// NMCMainNetParams
+var NMCMainNetParams = Params{
+	Name:        "main",
+	Net:         wire.NMCMainNet,
+	DefaultPort: "8334",
+	DNSSeeds:    []DNSSeed{ // from namecoin-core/src/chainparams.cpp
+		{"nmc.seed.quisquis.de", true},
+		{"seed.nmc.markasoftware.com", true},
+	},
+
+	// Chain parameters
+	// GenesisBlock:             &genesisBlock, // btc
+	// GenesisHash:              &genesisHash,  // btc
+	// PowLimit:                 mainPowLimit,  // btc
+	// PowLimitBits:             0x1d00ffff,    // btc
+
+	// From namecoin-core/src/chainparams.cpp
+	BIP0034Height:            250000,
+	BIP0065Height:            335000,
+	BIP0066Height:            250000,
+	// CoinbaseMaturity:         100,    // btc
+	// SubsidyReductionInterval: 210000, // btc
+	TargetTimespan:           time.Hour * 24 * 14, // 14 days
+	TargetTimePerBlock:       time.Minute * 10,    // 10 minutes
+	RetargetAdjustmentFactor: 4,                   // 25% less, 400% more - btc
+	ReduceMinDifficulty:      false,
+	// MinDiffReductionTime:     0,     // btc
+	// GenerateSupported:        false, // btc
+
+	// Checkpoints ordered from oldest to newest - from namecoin-core/src/chainparams.cpp
+	Checkpoints: []Checkpoint{
+        {  2016, newHashFromStr("0000000000660bad0d9fbde55ba7ee14ddf766ed5f527e3fbca523ac11460b92")},
+        {  4032, newHashFromStr("0000000000493b5696ad482deb79da835fe2385304b841beef1938655ddbc411")},
+        {  6048, newHashFromStr("000000000027939a2e1d8bb63f36c47da858e56d570f143e67e85068943470c9")},
+        {  8064, newHashFromStr("000000000003a01f708da7396e54d081701ea406ed163e519589717d8b7c95a5")},
+        { 10080, newHashFromStr("00000000000fed3899f818b2228b4f01b9a0a7eeee907abd172852df71c64b06")},
+        { 12096, newHashFromStr("0000000000006c06988ff361f124314f9f4bb45b6997d90a7ee4cedf434c670f")},
+        { 14112, newHashFromStr("00000000000045d95e0588c47c17d593c7b5cb4fb1e56213d1b3843c1773df2b")},
+        { 16128, newHashFromStr("000000000001d9964f9483f9096cf9d6c6c2886ed1e5dec95ad2aeec3ce72fa9")},
+        { 18940, newHashFromStr("00000000000087f7fc0c8085217503ba86f796fa4984f7e5a08b6c4c12906c05")},
+        { 30240, newHashFromStr("e1c8c862ff342358384d4c22fa6ea5f669f3e1cdcf34111f8017371c3c0be1da")},
+        { 57000, newHashFromStr("aa3ec60168a0200799e362e2b572ee01f3c3852030d07d036e0aa884ec61f203")},
+        {112896, newHashFromStr("73f880e78a04dd6a31efc8abf7ca5db4e262c4ae130d559730d6ccb8808095bf")},
+        {182000, newHashFromStr("d47b4a8fd282f635d66ce34ebbeb26ffd64c35b41f286646598abfd813cba6d9")},
+        {193000, newHashFromStr("3b85e70ba7f5433049cfbcf0ae35ed869496dbedcd1c0fafadb0284ec81d7b58")},
+        {250000, newHashFromStr("514ec75480df318ffa7eb4eff82e1c583c961aa64cce71b5922662f01ed1686a")},
+    },
+
+	// Consensus rule change deployments.
+	//
+	// The miner confirmation window is defined as:
+	//   target proof of work timespan / target proof of work spacing
+	RuleChangeActivationThreshold: 1916, // 95% of MinerConfirmationWindow
+	MinerConfirmationWindow:       2016, //
+	Deployments: [DefinedDeployments]ConsensusDeployment{
+		DeploymentTestDummy: {
+			BitNumber:  28,
+			StartTime:  1199145601, // January 1, 2008 UTC
+			ExpireTime: 1230767999, // December 31, 2008 UTC
+		},
+		DeploymentCSV: {
+			BitNumber:  0,
+			StartTime:  0,
+			ExpireTime: 0, // Not yet enabled
+		},
+		DeploymentSegwit: {
+			BitNumber:  1,
+			StartTime:  0,
+			ExpireTime: 0, // Not yet enabled
+		},
+	},
+
+	// Mempool parameters
+	// RelayNonStdTxs: false, // btc
+
+	// Human-readable part for Bech32 encoded segwit addresses, as defined in
+	// BIP 173.
+	Bech32HRPSegwit: "nc",
+
+	// Address encoding magics - from namecoin-core/src/chainparams.cpp
+	PubKeyHashAddrID:        0x34, // 52
+	ScriptHashAddrID:        0x0D, // 13
+	PrivateKeyID:            0xB4, // 180
+	// WitnessPubKeyHashAddrID: 0x06, // starts with p2  - btc
+	// WitnessScriptHashAddrID: 0x0A, // starts with 7Xh - btc
+
+	// BIP32 hierarchical deterministic extended key magics
+	HDPrivateKeyID: [4]byte{0x04, 0x88, 0xad, 0xe4}, // starts with xprv
+	HDPublicKeyID:  [4]byte{0x04, 0x88, 0xb2, 0x1e}, // starts with xpub
+
+	// BIP44 coin type used in the hierarchical deterministic path for
+	// address generation.
+	// HDCoinType: 0,
+}
+
+
+// MainNetParams defines the network parameters for the main Bitcoin network.
+var LTCMainNetParams = Params{
+	Name:        "mainnet",
+	Net:         wire.LTCMainNet,
+	DefaultPort: "9333",
+	DNSSeeds: []DNSSeed{
+        { "seed-a.litecoin.loshan.co.uk", true },
+        { "dnsseed.thrasher.io", true },
+        { "dnsseed.litecointools.com", true },
+        { "dnsseed.litecoinpool.org", true },
+        { "dnsseed.koin-project.com", false },
+	},
+
+		// From litecoin/src/chainparams.cpp
+	BIP0034Height:            710000,
+	BIP0065Height:            918684,
+	BIP0066Height:            811879,
+	// TargetTimespan:           time.Hour * 24 * 4, // 3.5 days
+	// TargetTimePerBlock:       time.Minute * 3,    // 2.5 minutes
+	// RetargetAdjustmentFactor: 4,                   // 25% less, 400% more - btc
+	ReduceMinDifficulty:      false,
+
+	// Checkpoints ordered from oldest to newest - from litecoin/src/chainparams.cpp
+	Checkpoints: []Checkpoint{
+		{  1500, newHashFromStr("841a2965955dd288cfa707a755d05a54e45f8bd476835ec9af4402a2b59a2967")},
+        {  4032, newHashFromStr("9ce90e427198fc0ef05e5905ce3503725b80e26afd35a987965fd7e3d9cf0846")},
+        {  8064, newHashFromStr("eb984353fc5190f210651f150c40b8a4bab9eeeff0b729fcb3987da694430d70")},
+        { 16128, newHashFromStr("602edf1859b7f9a6af809f1d9b0e6cb66fdc1d4d9dcd7a4bec03e12a1ccd153d")},
+        { 23420, newHashFromStr("d80fdf9ca81afd0bd2b2a90ac3a9fe547da58f2530ec874e978fce0b5101b507")},
+        { 50000, newHashFromStr("69dc37eb029b68f075a5012dcc0419c127672adb4f3a32882b2b3e71d07a20a6")},
+        { 80000, newHashFromStr("4fcb7c02f676a300503f49c764a89955a8f920b46a8cbecb4867182ecdb2e90a")},
+        {120000, newHashFromStr("bd9d26924f05f6daa7f0155f32828ec89e8e29cee9e7121b026a7a3552ac6131")},
+        {161500, newHashFromStr("dbe89880474f4bb4f75c227c77ba1cdc024991123b28b8418dbbf7798471ff43")},
+        {179620, newHashFromStr("2ad9c65c990ac00426d18e446e0fd7be2ffa69e9a7dcb28358a50b2b78b9f709")},
+        {240000, newHashFromStr("7140d1c4b4c2157ca217ee7636f24c9c73db39c4590c4e6eab2e3ea1555088aa")},
+        {383640, newHashFromStr("2b6809f094a9215bafc65eb3f110a35127a34be94b7d0590a096c3f126c6f364")},
+        {409004, newHashFromStr("487518d663d9f1fa08611d9395ad74d982b667fbdc0e77e9cf39b4f1355908a3")},
+        {456000, newHashFromStr("bf34f71cc6366cd487930d06be22f897e34ca6a40501ac7d401be32456372004")},
+        {638902, newHashFromStr("15238656e8ec63d28de29a8c75fcf3a5819afc953dcd9cc45cecc53baec74f38")},
+        {721000, newHashFromStr("198a7b4de1df9478e2463bd99d75b714eab235a2e63e741641dc8a759a9840e5")},
+    },
+
+	// Consensus rule change deployments.
+	//
+	// The miner confirmation window is defined as:
+	//   target proof of work timespan / target proof of work spacing
+	RuleChangeActivationThreshold: 6048, // 75% of 8064
+	MinerConfirmationWindow:       8064, //
+	Deployments: [DefinedDeployments]ConsensusDeployment{
+		DeploymentTestDummy: {
+			BitNumber:  28,
+			StartTime:  1199145601, // January 1, 2008 UTC
+			ExpireTime: 1230767999, // December 31, 2008 UTC
+		},
+		DeploymentCSV: {
+			BitNumber:  0,
+			StartTime:  1485561600, // January 28, 2017
+			ExpireTime: 1517356801, // January 31st, 2018
+		},
+		DeploymentSegwit: {
+			BitNumber:  1,
+			StartTime:  1485561600, // January 28, 2017
+			ExpireTime: 1517356801, // January 31st, 2018
+		},
+	},
+
+	// Human-readable part for Bech32 encoded segwit addresses, as defined in
+	// BIP 173.
+	// Bech32HRPSegwit: "nc",
+
+	// Address encoding magics - from litecoin/src/chainparams.cpp
+	PubKeyHashAddrID:        0x30, // 48
+	ScriptHashAddrID:        0x05, // 5
+	//ScriptHashAddr2ID:		0x32, // 50
+	PrivateKeyID:            0xB0, // 176
+
+	// BIP32 hierarchical deterministic extended key magics
+	HDPrivateKeyID: [4]byte{0x04, 0x35, 0x87, 0xcf},
+	HDPublicKeyID:  [4]byte{0x04, 0x35, 0x83, 0x94},
+}
+
+
 var (
 	// ErrDuplicateNet describes an error where the parameters for a Bitcoin
 	// network could not be set due to the network already being a standard
