@@ -140,6 +140,9 @@ const (
 	// LTCMainNet represents the main litecoin network
 	LTCMainNet BitcoinNet = 0xdbb6c0fb
 
+	// DASHMainNet represents the main dash network
+	DASHMainNet BitcoinNet = 0xbd6b0cbf
+
 )
 
 // bnStrings is a map of bitcoin networks back to their constant names for
@@ -151,6 +154,7 @@ var bnStrings = map[BitcoinNet]string{
 	SimNet:     "SimNet",
 	NMCMainNet: "NMCMainNet",
 	LTCMainNet: "LTCMainNet",
+	DASHMainNet: "DASHMainNet",
 }
 
 // String returns the BitcoinNet in human-readable form.

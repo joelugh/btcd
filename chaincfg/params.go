@@ -664,7 +664,7 @@ var NMCMainNetParams = Params{
 }
 
 
-// MainNetParams defines the network parameters for the main Bitcoin network.
+// LTCMainNetParams defines the network parameters for the main Litecoin network.
 var LTCMainNetParams = Params{
 	Name:        "mainnet",
 	Net:         wire.LTCMainNet,
@@ -743,6 +743,90 @@ var LTCMainNetParams = Params{
 	// BIP32 hierarchical deterministic extended key magics
 	HDPrivateKeyID: [4]byte{0x04, 0x35, 0x87, 0xcf},
 	HDPublicKeyID:  [4]byte{0x04, 0x35, 0x83, 0x94},
+}
+
+// DASHMainNetParams defines the network parameters for the main Dash network.
+var DASHMainNetParams = Params{
+	Name:        "main",
+	Net:         wire.DASHMainNet,
+	DefaultPort: "9999",
+	DNSSeeds: []DNSSeed{
+        { "dnsseed.dash.org", true },
+        { "dnsseed.dashdot.io", true },
+        { "dnsseed.masternode.io", true },
+        { "dnsseed.dashpay.io", true },
+	},
+
+		// From dash/src/chainparams.cpp
+	BIP0034Height:            1,
+	// BIP0065Height:            918684,
+	// BIP0066Height:            811879,
+	// TargetTimespan:           time.Hour * 24 * 4, // 3.5 days
+	// TargetTimePerBlock:       time.Minute * 3,    // 2.5 minutes
+	// RetargetAdjustmentFactor: 4,                   // 25% less, 400% more - btc
+	ReduceMinDifficulty:      false,
+
+	// Checkpoints ordered from oldest to newest - from litecoin/src/chainparams.cpp
+	Checkpoints: []Checkpoint{
+            {   1500, newHashFromStr("000000aaf0300f59f49bc3e970bad15c11f961fe2347accffff19d96ec9778e3")},
+            {   4991, newHashFromStr("000000003b01809551952460744d5dbb8fcbd6cbae3c220267bf7fa43f837367")},
+            {   9918, newHashFromStr("00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b")},
+            {  16912, newHashFromStr("00000000075c0d10371d55a60634da70f197548dbbfa4123e12abfcbc5738af9")},
+            {  23912, newHashFromStr("0000000000335eac6703f3b1732ec8b2f89c3ba3a7889e5767b090556bb9a276")},
+            {  35457, newHashFromStr("0000000000b0ae211be59b048df14820475ad0dd53b9ff83b010f71a77342d9f")},
+            {  45479, newHashFromStr("000000000063d411655d590590e16960f15ceea4257122ac430c6fbe39fbf02d")},
+            {  55895, newHashFromStr("0000000000ae4c53a43639a4ca027282f69da9c67ba951768a20415b6439a2d7")},
+            {  68899, newHashFromStr("0000000000194ab4d3d9eeb1f2f792f21bb39ff767cb547fe977640f969d77b7")},
+            {  74619, newHashFromStr("000000000011d28f38f05d01650a502cc3f4d0e793fbc26e2a2ca71f07dc3842")},
+            {  75095, newHashFromStr("0000000000193d12f6ad352a9996ee58ef8bdc4946818a5fec5ce99c11b87f0d")},
+            {  88805, newHashFromStr("00000000001392f1652e9bf45cd8bc79dc60fe935277cd11538565b4a94fa85f")},
+            { 107996, newHashFromStr("00000000000a23840ac16115407488267aa3da2b9bc843e301185b7d17e4dc40")},
+            { 137993, newHashFromStr("00000000000cf69ce152b1bffdeddc59188d7a80879210d6e5c9503011929c3c")},
+            { 167996, newHashFromStr("000000000009486020a80f7f2cc065342b0c2fb59af5e090cd813dba68ab0fed")},
+            { 207992, newHashFromStr("00000000000d85c22be098f74576ef00b7aa00c05777e966aff68a270f1e01a5")},
+            { 312645, newHashFromStr("0000000000059dcb71ad35a9e40526c44e7aae6c99169a9e7017b7d84b1c2daf")},
+            { 407452, newHashFromStr("000000000003c6a87e73623b9d70af7cd908ae22fee466063e4ffc20be1d2dbc")},
+            { 523412, newHashFromStr("000000000000e54f036576a10597e0e42cc22a5159ce572f999c33975e121d4d")},
+            { 523930, newHashFromStr("0000000000000bccdb11c2b1cfb0ecab452abf267d89b7f46eaf2d54ce6e652c")},
+            { 750000, newHashFromStr("00000000000000b4181bbbdddbae464ce11fede5d0292fb63fdede1e7c8ab21c")},
+    },
+
+	// Consensus rule change deployments.
+	//
+	// The miner confirmation window is defined as:
+	//   target proof of work timespan / target proof of work spacing
+	RuleChangeActivationThreshold: 1916, // 95% of 2016
+	MinerConfirmationWindow:       2016, //
+	Deployments: [DefinedDeployments]ConsensusDeployment{
+		DeploymentTestDummy: {
+			BitNumber:  28,
+			StartTime:  1199145601, // January 1, 2008 UTC
+			ExpireTime: 1230767999, // December 31, 2008 UTC
+		},
+		DeploymentCSV: {
+			BitNumber:  0,
+			StartTime:  1486252800, // Feb 5th, 2017
+			ExpireTime: 1517788800, // Feb 5th, 2018
+		},
+		DeploymentSegwit: {
+			BitNumber:  1,
+			StartTime:  1508025600, // Oct 15th, 2017
+			ExpireTime: 1539561600, // Oct 15th, 2018
+		},
+	},
+
+	// Human-readable part for Bech32 encoded segwit addresses, as defined in
+	// BIP 173.
+	// Bech32HRPSegwit: "nc",
+
+	// Address encoding magics - from litecoin/src/chainparams.cpp
+	PubKeyHashAddrID:        0x4C, // 76
+	ScriptHashAddrID:        0x10, // 16
+	PrivateKeyID:            0xCC, // 204
+
+	// BIP32 hierarchical deterministic extended key magics
+	HDPrivateKeyID: [4]byte{0x04, 0x88, 0xb2, 0x1e},
+	HDPublicKeyID:  [4]byte{0x04, 0x88, 0xad, 0xe4},
 }
 
 
