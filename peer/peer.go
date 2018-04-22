@@ -1203,6 +1203,9 @@ func (p *Peer) writeMessage(msg wire.Message, enc wire.MessageEncoding) error {
 // disconnecting the peer.  In particular, regression tests need to be allowed
 // to send malformed messages without the peer being disconnected.
 func (p *Peer) isAllowedReadError(err error) bool {
+
+	return true
+
 	// Only allow read errors in regression test mode.
 	if p.cfg.ChainParams.Net != wire.TestNet {
 		return false
@@ -1232,6 +1235,7 @@ func (p *Peer) isAllowedReadError(err error) bool {
 // expected to have come from reading from the remote peer in the inHandler,
 // should be logged and responded to with a reject message.
 func (p *Peer) shouldHandleReadError(err error) bool {
+
 	// No logging or reject message when the peer is being forcibly
 	// disconnected.
 	if atomic.LoadInt32(&p.disconnect) != 0 {
@@ -1498,6 +1502,7 @@ out:
 			// In order to allow regression tests with malformed messages, don't
 			// disconnect the peer when we're in regression test mode and the
 			// error is one of the allowed errors.
+
 			if p.isAllowedReadError(err) {
 				log.Errorf("Allowed test error from %s: %v", p, err)
 				idleTimer.Reset(idleTimeout)

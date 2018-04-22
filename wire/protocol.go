@@ -143,6 +143,9 @@ const (
 	// DASHMainNet represents the main dash network
 	DASHMainNet BitcoinNet = 0xbd6b0cbf
 
+	/// PPCMainNet represents the main peercoin network
+	PPCMainNet BitcoinNet = 0xe5e9e8e6
+
 )
 
 // bnStrings is a map of bitcoin networks back to their constant names for
@@ -155,6 +158,7 @@ var bnStrings = map[BitcoinNet]string{
 	NMCMainNet: "NMCMainNet",
 	LTCMainNet: "LTCMainNet",
 	DASHMainNet: "DASHMainNet",
+	PPCMainNet: "PPCMainNet",
 }
 
 // String returns the BitcoinNet in human-readable form.

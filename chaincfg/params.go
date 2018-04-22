@@ -666,7 +666,7 @@ var NMCMainNetParams = Params{
 
 // LTCMainNetParams defines the network parameters for the main Litecoin network.
 var LTCMainNetParams = Params{
-	Name:        "mainnet",
+	Name:        "main",
 	Net:         wire.LTCMainNet,
 	DefaultPort: "9333",
 	DNSSeeds: []DNSSeed{
@@ -751,18 +751,18 @@ var DASHMainNetParams = Params{
 	Net:         wire.DASHMainNet,
 	DefaultPort: "9999",
 	DNSSeeds: []DNSSeed{
-        { "dnsseed.dash.org", true },
-        { "dnsseed.dashdot.io", true },
-        { "dnsseed.masternode.io", true },
-        { "dnsseed.dashpay.io", true },
+        { "dnsseed.dash.org", false },
+        { "dnsseed.dashdot.io", false },
+        { "dnsseed.masternode.io", false },
+        { "dnsseed.dashpay.io", false },
 	},
 
 		// From dash/src/chainparams.cpp
 	BIP0034Height:            1,
 	// BIP0065Height:            918684,
 	// BIP0066Height:            811879,
-	// TargetTimespan:           time.Hour * 24 * 4, // 3.5 days
-	// TargetTimePerBlock:       time.Minute * 3,    // 2.5 minutes
+	TargetTimespan:           time.Hour * 24, // Dash: 1 day
+	TargetTimePerBlock:       time.Minute * 3, // Dash: 2.5 minutes
 	// RetargetAdjustmentFactor: 4,                   // 25% less, 400% more - btc
 	ReduceMinDifficulty:      false,
 
@@ -819,7 +819,7 @@ var DASHMainNetParams = Params{
 	// BIP 173.
 	// Bech32HRPSegwit: "nc",
 
-	// Address encoding magics - from litecoin/src/chainparams.cpp
+	// Address encoding magics - from dash/src/chainparams.cpp
 	PubKeyHashAddrID:        0x4C, // 76
 	ScriptHashAddrID:        0x10, // 16
 	PrivateKeyID:            0xCC, // 204
@@ -829,6 +829,17 @@ var DASHMainNetParams = Params{
 	HDPublicKeyID:  [4]byte{0x04, 0x88, 0xad, 0xe4},
 }
 
+
+// PPCMainNetParams defines the network parameters for the main Dash network.
+var PPCMainNetParams = Params{
+	Name:        "main",
+	Net:         wire.PPCMainNet,
+	DefaultPort: "9901",
+	DNSSeeds: []DNSSeed{
+        { "seed.peercoin.net", false },
+        { "seed.ppcoin.net", false },
+	},
+}
 
 var (
 	// ErrDuplicateNet describes an error where the parameters for a Bitcoin
