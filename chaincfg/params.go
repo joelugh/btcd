@@ -599,22 +599,22 @@ var NMCMainNetParams = Params{
 
 	// Checkpoints ordered from oldest to newest - from namecoin-core/src/chainparams.cpp
 	Checkpoints: []Checkpoint{
-        {  2016, newHashFromStr("0000000000660bad0d9fbde55ba7ee14ddf766ed5f527e3fbca523ac11460b92")},
-        {  4032, newHashFromStr("0000000000493b5696ad482deb79da835fe2385304b841beef1938655ddbc411")},
-        {  6048, newHashFromStr("000000000027939a2e1d8bb63f36c47da858e56d570f143e67e85068943470c9")},
-        {  8064, newHashFromStr("000000000003a01f708da7396e54d081701ea406ed163e519589717d8b7c95a5")},
-        { 10080, newHashFromStr("00000000000fed3899f818b2228b4f01b9a0a7eeee907abd172852df71c64b06")},
-        { 12096, newHashFromStr("0000000000006c06988ff361f124314f9f4bb45b6997d90a7ee4cedf434c670f")},
-        { 14112, newHashFromStr("00000000000045d95e0588c47c17d593c7b5cb4fb1e56213d1b3843c1773df2b")},
-        { 16128, newHashFromStr("000000000001d9964f9483f9096cf9d6c6c2886ed1e5dec95ad2aeec3ce72fa9")},
-        { 18940, newHashFromStr("00000000000087f7fc0c8085217503ba86f796fa4984f7e5a08b6c4c12906c05")},
-        { 30240, newHashFromStr("e1c8c862ff342358384d4c22fa6ea5f669f3e1cdcf34111f8017371c3c0be1da")},
-        { 57000, newHashFromStr("aa3ec60168a0200799e362e2b572ee01f3c3852030d07d036e0aa884ec61f203")},
-        {112896, newHashFromStr("73f880e78a04dd6a31efc8abf7ca5db4e262c4ae130d559730d6ccb8808095bf")},
-        {182000, newHashFromStr("d47b4a8fd282f635d66ce34ebbeb26ffd64c35b41f286646598abfd813cba6d9")},
-        {193000, newHashFromStr("3b85e70ba7f5433049cfbcf0ae35ed869496dbedcd1c0fafadb0284ec81d7b58")},
-        {250000, newHashFromStr("514ec75480df318ffa7eb4eff82e1c583c961aa64cce71b5922662f01ed1686a")},
-    },
+		{  2016, newHashFromStr("0000000000660bad0d9fbde55ba7ee14ddf766ed5f527e3fbca523ac11460b92")},
+		{  4032, newHashFromStr("0000000000493b5696ad482deb79da835fe2385304b841beef1938655ddbc411")},
+		{  6048, newHashFromStr("000000000027939a2e1d8bb63f36c47da858e56d570f143e67e85068943470c9")},
+		{  8064, newHashFromStr("000000000003a01f708da7396e54d081701ea406ed163e519589717d8b7c95a5")},
+		{ 10080, newHashFromStr("00000000000fed3899f818b2228b4f01b9a0a7eeee907abd172852df71c64b06")},
+		{ 12096, newHashFromStr("0000000000006c06988ff361f124314f9f4bb45b6997d90a7ee4cedf434c670f")},
+		{ 14112, newHashFromStr("00000000000045d95e0588c47c17d593c7b5cb4fb1e56213d1b3843c1773df2b")},
+		{ 16128, newHashFromStr("000000000001d9964f9483f9096cf9d6c6c2886ed1e5dec95ad2aeec3ce72fa9")},
+		{ 18940, newHashFromStr("00000000000087f7fc0c8085217503ba86f796fa4984f7e5a08b6c4c12906c05")},
+		{ 30240, newHashFromStr("e1c8c862ff342358384d4c22fa6ea5f669f3e1cdcf34111f8017371c3c0be1da")},
+		{ 57000, newHashFromStr("aa3ec60168a0200799e362e2b572ee01f3c3852030d07d036e0aa884ec61f203")},
+		{112896, newHashFromStr("73f880e78a04dd6a31efc8abf7ca5db4e262c4ae130d559730d6ccb8808095bf")},
+		{182000, newHashFromStr("d47b4a8fd282f635d66ce34ebbeb26ffd64c35b41f286646598abfd813cba6d9")},
+		{193000, newHashFromStr("3b85e70ba7f5433049cfbcf0ae35ed869496dbedcd1c0fafadb0284ec81d7b58")},
+		{250000, newHashFromStr("514ec75480df318ffa7eb4eff82e1c583c961aa64cce71b5922662f01ed1686a")},
+	},
 
 	// Consensus rule change deployments.
 	//
@@ -670,11 +670,11 @@ var LTCMainNetParams = Params{
 	Net:         wire.LTCMainNet,
 	DefaultPort: "9333",
 	DNSSeeds: []DNSSeed{
-        { "seed-a.litecoin.loshan.co.uk", true },
-        { "dnsseed.thrasher.io", true },
-        { "dnsseed.litecointools.com", true },
-        { "dnsseed.litecoinpool.org", true },
-        { "dnsseed.koin-project.com", false },
+		{ "seed-a.litecoin.loshan.co.uk", true },
+		{ "dnsseed.thrasher.io", true },
+		{ "dnsseed.litecointools.com", true },
+		{ "dnsseed.litecoinpool.org", true },
+		{ "dnsseed.koin-project.com", false },
 	},
 
 		// From litecoin/src/chainparams.cpp
@@ -689,22 +689,22 @@ var LTCMainNetParams = Params{
 	// Checkpoints ordered from oldest to newest - from litecoin/src/chainparams.cpp
 	Checkpoints: []Checkpoint{
 		{  1500, newHashFromStr("841a2965955dd288cfa707a755d05a54e45f8bd476835ec9af4402a2b59a2967")},
-        {  4032, newHashFromStr("9ce90e427198fc0ef05e5905ce3503725b80e26afd35a987965fd7e3d9cf0846")},
-        {  8064, newHashFromStr("eb984353fc5190f210651f150c40b8a4bab9eeeff0b729fcb3987da694430d70")},
-        { 16128, newHashFromStr("602edf1859b7f9a6af809f1d9b0e6cb66fdc1d4d9dcd7a4bec03e12a1ccd153d")},
-        { 23420, newHashFromStr("d80fdf9ca81afd0bd2b2a90ac3a9fe547da58f2530ec874e978fce0b5101b507")},
-        { 50000, newHashFromStr("69dc37eb029b68f075a5012dcc0419c127672adb4f3a32882b2b3e71d07a20a6")},
-        { 80000, newHashFromStr("4fcb7c02f676a300503f49c764a89955a8f920b46a8cbecb4867182ecdb2e90a")},
-        {120000, newHashFromStr("bd9d26924f05f6daa7f0155f32828ec89e8e29cee9e7121b026a7a3552ac6131")},
-        {161500, newHashFromStr("dbe89880474f4bb4f75c227c77ba1cdc024991123b28b8418dbbf7798471ff43")},
-        {179620, newHashFromStr("2ad9c65c990ac00426d18e446e0fd7be2ffa69e9a7dcb28358a50b2b78b9f709")},
-        {240000, newHashFromStr("7140d1c4b4c2157ca217ee7636f24c9c73db39c4590c4e6eab2e3ea1555088aa")},
-        {383640, newHashFromStr("2b6809f094a9215bafc65eb3f110a35127a34be94b7d0590a096c3f126c6f364")},
-        {409004, newHashFromStr("487518d663d9f1fa08611d9395ad74d982b667fbdc0e77e9cf39b4f1355908a3")},
-        {456000, newHashFromStr("bf34f71cc6366cd487930d06be22f897e34ca6a40501ac7d401be32456372004")},
-        {638902, newHashFromStr("15238656e8ec63d28de29a8c75fcf3a5819afc953dcd9cc45cecc53baec74f38")},
-        {721000, newHashFromStr("198a7b4de1df9478e2463bd99d75b714eab235a2e63e741641dc8a759a9840e5")},
-    },
+		{  4032, newHashFromStr("9ce90e427198fc0ef05e5905ce3503725b80e26afd35a987965fd7e3d9cf0846")},
+		{  8064, newHashFromStr("eb984353fc5190f210651f150c40b8a4bab9eeeff0b729fcb3987da694430d70")},
+		{ 16128, newHashFromStr("602edf1859b7f9a6af809f1d9b0e6cb66fdc1d4d9dcd7a4bec03e12a1ccd153d")},
+		{ 23420, newHashFromStr("d80fdf9ca81afd0bd2b2a90ac3a9fe547da58f2530ec874e978fce0b5101b507")},
+		{ 50000, newHashFromStr("69dc37eb029b68f075a5012dcc0419c127672adb4f3a32882b2b3e71d07a20a6")},
+		{ 80000, newHashFromStr("4fcb7c02f676a300503f49c764a89955a8f920b46a8cbecb4867182ecdb2e90a")},
+		{120000, newHashFromStr("bd9d26924f05f6daa7f0155f32828ec89e8e29cee9e7121b026a7a3552ac6131")},
+		{161500, newHashFromStr("dbe89880474f4bb4f75c227c77ba1cdc024991123b28b8418dbbf7798471ff43")},
+		{179620, newHashFromStr("2ad9c65c990ac00426d18e446e0fd7be2ffa69e9a7dcb28358a50b2b78b9f709")},
+		{240000, newHashFromStr("7140d1c4b4c2157ca217ee7636f24c9c73db39c4590c4e6eab2e3ea1555088aa")},
+		{383640, newHashFromStr("2b6809f094a9215bafc65eb3f110a35127a34be94b7d0590a096c3f126c6f364")},
+		{409004, newHashFromStr("487518d663d9f1fa08611d9395ad74d982b667fbdc0e77e9cf39b4f1355908a3")},
+		{456000, newHashFromStr("bf34f71cc6366cd487930d06be22f897e34ca6a40501ac7d401be32456372004")},
+		{638902, newHashFromStr("15238656e8ec63d28de29a8c75fcf3a5819afc953dcd9cc45cecc53baec74f38")},
+		{721000, newHashFromStr("198a7b4de1df9478e2463bd99d75b714eab235a2e63e741641dc8a759a9840e5")},
+	},
 
 	// Consensus rule change deployments.
 	//
@@ -751,10 +751,10 @@ var DASHMainNetParams = Params{
 	Net:         wire.DASHMainNet,
 	DefaultPort: "9999",
 	DNSSeeds: []DNSSeed{
-        { "dnsseed.dash.org", false },
-        { "dnsseed.dashdot.io", false },
-        { "dnsseed.masternode.io", false },
-        { "dnsseed.dashpay.io", false },
+		{ "dnsseed.dash.org", false },
+		{ "dnsseed.dashdot.io", false },
+		{ "dnsseed.masternode.io", false },
+		{ "dnsseed.dashpay.io", false },
 	},
 
 		// From dash/src/chainparams.cpp
@@ -768,28 +768,28 @@ var DASHMainNetParams = Params{
 
 	// Checkpoints ordered from oldest to newest - from litecoin/src/chainparams.cpp
 	Checkpoints: []Checkpoint{
-            {   1500, newHashFromStr("000000aaf0300f59f49bc3e970bad15c11f961fe2347accffff19d96ec9778e3")},
-            {   4991, newHashFromStr("000000003b01809551952460744d5dbb8fcbd6cbae3c220267bf7fa43f837367")},
-            {   9918, newHashFromStr("00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b")},
-            {  16912, newHashFromStr("00000000075c0d10371d55a60634da70f197548dbbfa4123e12abfcbc5738af9")},
-            {  23912, newHashFromStr("0000000000335eac6703f3b1732ec8b2f89c3ba3a7889e5767b090556bb9a276")},
-            {  35457, newHashFromStr("0000000000b0ae211be59b048df14820475ad0dd53b9ff83b010f71a77342d9f")},
-            {  45479, newHashFromStr("000000000063d411655d590590e16960f15ceea4257122ac430c6fbe39fbf02d")},
-            {  55895, newHashFromStr("0000000000ae4c53a43639a4ca027282f69da9c67ba951768a20415b6439a2d7")},
-            {  68899, newHashFromStr("0000000000194ab4d3d9eeb1f2f792f21bb39ff767cb547fe977640f969d77b7")},
-            {  74619, newHashFromStr("000000000011d28f38f05d01650a502cc3f4d0e793fbc26e2a2ca71f07dc3842")},
-            {  75095, newHashFromStr("0000000000193d12f6ad352a9996ee58ef8bdc4946818a5fec5ce99c11b87f0d")},
-            {  88805, newHashFromStr("00000000001392f1652e9bf45cd8bc79dc60fe935277cd11538565b4a94fa85f")},
-            { 107996, newHashFromStr("00000000000a23840ac16115407488267aa3da2b9bc843e301185b7d17e4dc40")},
-            { 137993, newHashFromStr("00000000000cf69ce152b1bffdeddc59188d7a80879210d6e5c9503011929c3c")},
-            { 167996, newHashFromStr("000000000009486020a80f7f2cc065342b0c2fb59af5e090cd813dba68ab0fed")},
-            { 207992, newHashFromStr("00000000000d85c22be098f74576ef00b7aa00c05777e966aff68a270f1e01a5")},
-            { 312645, newHashFromStr("0000000000059dcb71ad35a9e40526c44e7aae6c99169a9e7017b7d84b1c2daf")},
-            { 407452, newHashFromStr("000000000003c6a87e73623b9d70af7cd908ae22fee466063e4ffc20be1d2dbc")},
-            { 523412, newHashFromStr("000000000000e54f036576a10597e0e42cc22a5159ce572f999c33975e121d4d")},
-            { 523930, newHashFromStr("0000000000000bccdb11c2b1cfb0ecab452abf267d89b7f46eaf2d54ce6e652c")},
-            { 750000, newHashFromStr("00000000000000b4181bbbdddbae464ce11fede5d0292fb63fdede1e7c8ab21c")},
-    },
+			{   1500, newHashFromStr("000000aaf0300f59f49bc3e970bad15c11f961fe2347accffff19d96ec9778e3")},
+			{   4991, newHashFromStr("000000003b01809551952460744d5dbb8fcbd6cbae3c220267bf7fa43f837367")},
+			{   9918, newHashFromStr("00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b")},
+			{  16912, newHashFromStr("00000000075c0d10371d55a60634da70f197548dbbfa4123e12abfcbc5738af9")},
+			{  23912, newHashFromStr("0000000000335eac6703f3b1732ec8b2f89c3ba3a7889e5767b090556bb9a276")},
+			{  35457, newHashFromStr("0000000000b0ae211be59b048df14820475ad0dd53b9ff83b010f71a77342d9f")},
+			{  45479, newHashFromStr("000000000063d411655d590590e16960f15ceea4257122ac430c6fbe39fbf02d")},
+			{  55895, newHashFromStr("0000000000ae4c53a43639a4ca027282f69da9c67ba951768a20415b6439a2d7")},
+			{  68899, newHashFromStr("0000000000194ab4d3d9eeb1f2f792f21bb39ff767cb547fe977640f969d77b7")},
+			{  74619, newHashFromStr("000000000011d28f38f05d01650a502cc3f4d0e793fbc26e2a2ca71f07dc3842")},
+			{  75095, newHashFromStr("0000000000193d12f6ad352a9996ee58ef8bdc4946818a5fec5ce99c11b87f0d")},
+			{  88805, newHashFromStr("00000000001392f1652e9bf45cd8bc79dc60fe935277cd11538565b4a94fa85f")},
+			{ 107996, newHashFromStr("00000000000a23840ac16115407488267aa3da2b9bc843e301185b7d17e4dc40")},
+			{ 137993, newHashFromStr("00000000000cf69ce152b1bffdeddc59188d7a80879210d6e5c9503011929c3c")},
+			{ 167996, newHashFromStr("000000000009486020a80f7f2cc065342b0c2fb59af5e090cd813dba68ab0fed")},
+			{ 207992, newHashFromStr("00000000000d85c22be098f74576ef00b7aa00c05777e966aff68a270f1e01a5")},
+			{ 312645, newHashFromStr("0000000000059dcb71ad35a9e40526c44e7aae6c99169a9e7017b7d84b1c2daf")},
+			{ 407452, newHashFromStr("000000000003c6a87e73623b9d70af7cd908ae22fee466063e4ffc20be1d2dbc")},
+			{ 523412, newHashFromStr("000000000000e54f036576a10597e0e42cc22a5159ce572f999c33975e121d4d")},
+			{ 523930, newHashFromStr("0000000000000bccdb11c2b1cfb0ecab452abf267d89b7f46eaf2d54ce6e652c")},
+			{ 750000, newHashFromStr("00000000000000b4181bbbdddbae464ce11fede5d0292fb63fdede1e7c8ab21c")},
+	},
 
 	// Consensus rule change deployments.
 	//
@@ -830,14 +830,40 @@ var DASHMainNetParams = Params{
 }
 
 
-// PPCMainNetParams defines the network parameters for the main Dash network.
+// PPCMainNetParams defines the network parameters for the main Peercoin network.
 var PPCMainNetParams = Params{
 	Name:        "main",
 	Net:         wire.PPCMainNet,
 	DefaultPort: "9901",
 	DNSSeeds: []DNSSeed{
-        { "seed.peercoin.net", false },
-        { "seed.ppcoin.net", false },
+		{ "seed.peercoin.net", false },
+		{ "seed.ppcoin.net", false },
+	},
+}
+
+// ZECMainNetParams defines the network parameters for the main ZCash network.
+var ZECMainNetParams = Params{
+	Name:        "main",
+	Net:         wire.ZECMainNet,
+	DefaultPort: "8233",
+	DNSSeeds: []DNSSeed{
+			{ "dnsseed.z.cash", false },
+			{ "dnsseed.str4d.xyz", false},
+			{ "dnsseed.znodes.org", false},
+	},
+}
+
+// DOGEMainNetParams defines the network parameters for the main Dogecoin network.
+// See: https://github.com/dogecoin/dogecoin/blob/master/src/chainparams.cpp
+var DOGEMainNetParams = Params{
+	Name:        "main",
+	Net:         wire.DOGEMainNet,
+	DefaultPort: "22556",
+	DNSSeeds: []DNSSeed{
+			{ "seed.dogecoin.com", false },
+			{ "seed.multidoge.org", false},
+			{ "seed2.multidoge.org", false},
+			{ "seed.doger.dogecoin.com", false},
 	},
 }
 

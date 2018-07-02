@@ -143,8 +143,14 @@ const (
 	// DASHMainNet represents the main dash network
 	DASHMainNet BitcoinNet = 0xbd6b0cbf
 
-	/// PPCMainNet represents the main peercoin network
+	// PPCMainNet represents the main peercoin network
 	PPCMainNet BitcoinNet = 0xe5e9e8e6
+
+	// ZECMainNet represents the main zcash network
+	ZECMainNet BitcoinNet = 0x6427e924
+
+	// DOGEMainNet represents the main dogecoin network
+	DOGEMainNet BitcoinNet = 0xc0c0c0c0
 
 )
 
@@ -159,6 +165,8 @@ var bnStrings = map[BitcoinNet]string{
 	LTCMainNet: "LTCMainNet",
 	DASHMainNet: "DASHMainNet",
 	PPCMainNet: "PPCMainNet",
+	ZECMainNet: "ZECMainNet",
+	DOGEMainNet: "DOGEMainNet",
 }
 
 // String returns the BitcoinNet in human-readable form.
